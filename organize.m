@@ -1,0 +1,196 @@
+%
+% Read in predictors from analysis files. Put into single file
+%
+for imember = 0:0
+    disp(['Checking for ensemble member ' num2str(imember)])
+    basedir = '../encore_AL_EP/';
+    forInit = [];
+    basin = [];
+    stnum = [];
+    lat = [];
+    lon = [];
+    vmax = [];
+    rmw = [];
+    min_slp = [];
+    shr_mag = [];
+    shr_hdg = [];
+    shr_ships = [];
+    stm_spd = [];
+    stm_hdg = [];
+    tpw = [];
+    t200 = [];
+    land = [];
+    tang850 = [];
+    vort850 = [];
+    dvrg200 = [];
+    rhlo = [];
+    rhmd = [];
+    rhhi = [];
+    cape1 = [];
+    cape2 = [];
+    cape3 = [];
+    w8501 = [];
+    w8502 = [];
+    w8503 = [];
+    tgrd = [];
+    ike1 = [];
+    ike2 = [];
+    usfc1 = [];
+    usfc2 = [];
+    usfc3 = [];
+    usfcsym1 = [];
+    usfcsym2 = [];
+    usfcsym3 = [];
+    sst = [];
+    vmpi = [];
+    pot = [];
+    pers = [];
+    ir1 = [];
+    ir2 = [];
+    ir3 = [];
+    ir4 = [];
+    ir5 = [];
+    ir6 = [];
+    ir7 = [];
+    ir8 = [];
+    ir9 = [];
+    ir10 = [];
+    ir11 = [];
+    ir12 = [];
+    ir13 = [];
+    ir14 = [];
+    ir15 = [];
+    ir16 = [];
+    %
+    if (imember < 10);
+        imem = ['0' num2str(imember)];
+    else
+        imem = num2str(imember);
+    end
+    dummy = zeros(41, 1) - 999.9;
+    g = dir([basedir '*' imem '_diag.nc']);
+    for o = 1:length(g)
+        filein = [basedir g(o).name];
+        disp(filein)
+        forInit = [forInit ; ...
+            ncreadatt(filein, '/', ...
+            'forecast_initial_time')];
+        basin = [basin ; ...
+            ncreadatt(filein, '/', 'ocean_basin')];
+        stnum = [stnum ; ...
+            ncreadatt(filein, '/', 'storm_number')];
+        [a, b] = size(ncread(filein, 'LAT'));
+        dummy(1:a) = ncread(filein, 'LAT');
+        lat = [lat dummy];
+        dummy(1:a) = ncread(filein, 'LON');
+        lon = [lon dummy];
+        dummy(1:a) = ncread(filein, 'VMAX');
+        vmax = [vmax dummy];
+        dummy(1:a) = ncread(filein, 'RMW');
+        rmw = [rmw dummy];
+        dummy(1:a) = ncread(filein, 'MIN_SLP');
+        min_slp = [min_slp dummy];
+        dummy(1:a) = ncread(filein, 'SHR_MAG');
+        shr_mag = [shr_mag dummy];
+        dummy(1:a) = ncread(filein, 'SHR_HDG');
+        shr_hdg = [shr_hdg dummy];
+        dummy(1:a) = ncread(filein, 'SHR_SHIPS');
+        shr_ships = [shr_ships dummy];
+        dummy(1:a) = ncread(filein, 'STM_SPD');
+        stm_spd = [stm_spd dummy];
+        dummy(1:a) = ncread(filein, 'STM_HDG');
+        stm_hdg = [stm_hdg dummy];
+        dummy(1:a) = ncread(filein, 'TPW');
+        tpw = [tpw dummy];
+        dummy(1:a) = ncread(filein, 'T200');
+        t200 = [t200 dummy];
+        dummy(1:a) = ncread(filein, 'LAND');
+        land = [land dummy];
+        dummy(1:a) = ncread(filein, 'TANG850');
+        tang850 = [tang850 dummy];
+        dummy(1:a) = ncread(filein, 'VORT850');
+        vort850 = [vort850 dummy];
+        dummy(1:a) = ncread(filein, 'DVRG200');
+        dvrg200 = [dvrg200 dummy];
+        dummy(1:a) = ncread(filein, 'RHLO');
+        rhlo = [rhlo dummy];
+        dummy(1:a) = ncread(filein, 'RHMD');
+        rhmd = [rhmd dummy];
+        dummy(1:a) = ncread(filein, 'RHHI');
+        rhhi = [rhhi dummy];
+        dummy(1:a) = ncread(filein, 'CAPE1');
+        cape1 = [cape1 dummy];
+        dummy(1:a) = ncread(filein, 'CAPE2');
+        cape2 = [cape2 dummy];
+        dummy(1:a) = ncread(filein, 'CAPE3');
+        cape3 = [cape3 dummy];
+        dummy(1:a) = ncread(filein, 'W8501');
+        w8501 = [w8501 dummy];
+        dummy(1:a) = ncread(filein, 'W8502');
+        w8502 = [w8502 dummy];
+        dummy(1:a) = ncread(filein, 'W8503');
+        w8503 = [w8503 dummy];
+        dummy(1:a) = ncread(filein, 'TGRD');
+        tgrd = [tgrd dummy];
+        dummy(1:a) = ncread(filein, 'IKE1');
+        ike1 = [ike1 dummy];
+        dummy(1:a) = ncread(filein, 'IKE2');
+        ike2 = [ike2 dummy];
+        dummy(1:a) = ncread(filein, 'USFC1');
+        usfc1 = [usfc1 dummy];
+        dummy(1:a) = ncread(filein, 'USFC2');
+        usfc2 = [usfc2 dummy];
+        dummy(1:a) = ncread(filein, 'USFC3');
+        usfc3 = [usfc3 dummy];
+        dummy(1:a) = ncread(filein, 'USFCSYM1');
+        usfcsym1 = [usfcsym1 dummy];
+        dummy(1:a) = ncread(filein, 'USFCSYM2');
+        usfcsym2 = [usfcsym2 dummy];
+        dummy(1:a) = ncread(filein, 'USFCSYM3');
+        usfcsym3 = [usfcsym3 dummy];
+        dummy(1:a) = ncread(filein, 'SST');
+        sst = [sst dummy];
+        dummy(1:a) = ncread(filein, 'VMPI');
+        vmpi = [vmpi dummy];
+        dummy(1:a) = ncread(filein, 'POT');
+        pot = [pot dummy];
+        dummy(1:a) = ncread(filein, 'PERS');
+        pers = [pers dummy];
+        dummy(1:a) = ncread(filein, 'IR1');
+        ir1 = [ir1 dummy];
+        dummy(1:a) = ncread(filein, 'IR2');
+        ir2 = [ir2 dummy];
+        dummy(1:a) = ncread(filein, 'IR3');
+        ir3 = [ir3 dummy];
+        dummy(1:a) = ncread(filein, 'IR4');
+        ir4 = [ir4 dummy];
+        dummy(1:a) = ncread(filein, 'IR5');
+        ir5 = [ir5 dummy];
+        dummy(1:a) = ncread(filein, 'IR6');
+        ir6 = [ir6 dummy];
+        dummy(1:a) = ncread(filein, 'IR7');
+        ir7 = [ir7 dummy];
+        dummy(1:a) = ncread(filein, 'IR8');
+        ir8 = [ir8 dummy];
+        dummy(1:a) = ncread(filein, 'IR9');
+        ir9 = [ir9 dummy];
+        dummy(1:a) = ncread(filein, 'IR10');
+        ir10 = [ir10 dummy];
+        dummy(1:a) = ncread(filein, 'IR11');
+        ir11 = [ir11 dummy];
+        dummy(1:a) = ncread(filein, 'IR12');
+        ir12 = [ir12 dummy];
+        dummy(1:a) = ncread(filein, 'IR13');
+        ir13 = [ir13 dummy];
+        dummy(1:a) = ncread(filein, 'IR14');
+        ir14 = [ir14 dummy];
+        dummy(1:a) = ncread(filein, 'IR15');
+        ir15 = [ir15 dummy];
+        dummy(1:a) = ncread(filein, 'IR16');
+        ir16 = [ir16 dummy];
+    end
+    clear k l m n o a b d e f g *dir filein dummy basedir
+    file_out = ['all_variables' imem '.mat'];
+    disp(file_out)
+    save(file_out)
+end
