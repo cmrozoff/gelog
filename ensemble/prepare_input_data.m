@@ -76,14 +76,16 @@ for imember = 1:31
     reduced = NaN(nt, 54);
     for j = 1:nt
         for i = 1:6
-        	reduced(j, i) = nanmean(all_preds_f(j:j+nlt, i));
+        	reduced(j, i) = nanmean(all_preds_f(j:j+nlt, i, imember));
         end
         for i = 23:26
-            reduced(j, i) = nanmean(all_preds_f(j:j+nlt, i));
+            reduced(j, i) = nanmean(all_preds_f(j:j+nlt, i, imember));
         end
+        reduced(j, 24) = all_preds_f(j, 24, imember);
+        reduced(j, 25) = all_preds_f(j, 25, imember);
         reduced(j, 27) = all_preds_f(1, 27); % Use t = 0 value (Persistence)
         for i = 28:53
-            reduced(j, i) = nanmean(all_preds_f(j:j+nlt, i));
+            reduced(j, i) = nanmean(all_preds_f(j:j+nlt, i, imember));
         end
     end
     reduced(:, 54) = dvmax_model_f_mem;

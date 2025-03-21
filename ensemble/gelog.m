@@ -3,8 +3,8 @@
 %
 yr_f = '2024';
 mo_f = '09';
-da_f = '24';
-hr_f = '18';
+da_f = '25';
+hr_f = '00';
 stnum_f = '09';
 basin_f = 'AL';
 home_dir = '../../encore_AL_EP/';
