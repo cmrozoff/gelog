@@ -2,10 +2,10 @@
 % Test single cycle
 %
 yr_f = '2024';
-mo_f = '09';
-da_f = '25';
+mo_f = '10';
+da_f = '04';
 hr_f = '00';
-stnum_f = '09';
+stnum_f = '14';
 basin_f = 'AL';
 home_dir = '../../encore_AL_EP/';
 %
@@ -13,6 +13,9 @@ disp('Running real time forecast')
 ri_defn = 30;
 time_inc = 24;
 missing = -999.9;
+%
+%Put data into a file all_preds_f
+read_in_case_study_data
 %
 nt = 21;
 prob_f = NaN(nt, 31);
