@@ -2,13 +2,17 @@ import numpy as np
 import matplotlib.pyplot as plt
 import cartopy.crs as ccrs
 import cartopy.feature as cfeature
+from cartopy.io.shapereader import natural_earth
+from matplotlib.cm import ScalarMappable
+import matplotlib.ticker as mticker
 from netCDF4 import Dataset
 import matplotlib.colors as mcolors
 import matplotlib.cm as cm
 from sys import exit
 
 # Load NetCDF file
-nc_file = "predictions/prediction_AL09_2024092500.nc"  # Change to the actual filename
+nc_file = "predictions/prediction_AL09_2024092512.nc"  # Change to the actual filename
+file_out = 'probs_al09_2024092512.png'
 ds = Dataset(nc_file, mode="r")
 
 dir_native = '/glade/work/rozoff/ensri/ENCORE/data_output/2024/'
@@ -27,16 +31,48 @@ lat_idx = 23;
 longitude = reduced_f[:, lon_idx, :] - 360  # Shape (NM, NT)
 latitude = reduced_f[:, lat_idx, :]   # Shape (NM, NT)
 
+meanlon = np.nanmean(longitude)
+meanlat = np.nanmean(latitude)
 
-# Create the plot
-fig, ax = plt.subplots(figsize=(10, 6), subplot_kw={"projection": ccrs.PlateCarree()})
+
+max_lat = meanlat + 10
+min_lat = meanlat - 10
+max_lon = meanlon - 15
+min_lon = meanlon + 15
+
+min_lon = -92
+max_lon = -75
+min_lat = 18
+max_lat = 31
+#
+print('Plotting field')
+projection = ccrs.Mercator()
+crs = ccrs.PlateCarree()
+plt.figure(dpi = 150)
+ax = plt.axes(projection = projection, frameon = True)
+gl = ax.gridlines(crs = crs, draw_labels = True, linewidth = 0.6,
+                color = 'gray', alpha = 0.5, linestyle = '-.')
+gl.top_labels = False
+gl.right_labels = False
+gl.xlabel_style = {"size" : 10}
+gl.ylabel_style = {"size" : 10}
+import cartopy.feature as cf
 
 # Add map features
-ax.add_feature(cfeature.LAND, edgecolor="black")
-ax.add_feature(cfeature.BORDERS, linestyle=":")
-ax.add_feature(cfeature.STATES, linestyle=":", edgecolor="gray")
-ax.add_feature(cfeature.COASTLINE)
+ax.add_feature(cf.COASTLINE.with_scale("50m"), lw=0.5)
+ax.add_feature(cf.BORDERS.with_scale("50m"), lw=0.3)
+ax.add_feature(cf.LAKES, alpha = 0.5)
+ax.add_feature(cfeature.LAND, facecolor="silver")
+# Add state boundaries
+states_provinces = cfeature.NaturalEarthFeature(
+    category='cultural',
+    name='admin_1_states_provinces_lines',
+    scale='10m',
+    facecolor='none')
+ax.add_feature(states_provinces, edgecolor='black', lw=0.3, alpha=0.2)
 ax.add_feature(cfeature.OCEAN, facecolor="lightblue")
+
+ax.set_extent([min_lon, max_lon, min_lat, max_lat ])
 
 
 # Create colormap
@@ -57,9 +93,10 @@ sm = plt.cm.ScalarMappable(cmap=cmap, norm=norm)
 cbar = plt.colorbar(sm, ax=ax, orientation="vertical", label="Probability (prob_f)")
 
 # Labels and title
-ax.set_title("Forecast Ensemble Trajectories with Probability Color Coding")
 ax.set_xlabel("Longitude")
 ax.set_ylabel("Latitude")
+
+plt.savefig(file_out, bbox_inches = 'tight')
 
 plt.show()
 
