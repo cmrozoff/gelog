@@ -15,10 +15,10 @@ from sys import exit
 stnam = 'AL09'
 yr = '2024'
 mo = '09'
-da = '24'
-hr = '06'
-max_lat = 31
-min_lat = 18 # 17 for 2,3, 16 for 1 
+da = '23'
+hr = '18'
+max_lat = 29
+min_lat = 16 # 17 for 2,3, 16 for 1 
 
 #
 nc_file = ("predictions/prediction_" + stnam + "_" + yr + mo + da + hr + ".nc")
