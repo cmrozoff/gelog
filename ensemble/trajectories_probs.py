@@ -8,11 +8,12 @@ import matplotlib.ticker as mticker
 from netCDF4 import Dataset
 import matplotlib.colors as mcolors
 import matplotlib.cm as cm
+from matplotlib import colormaps
 from sys import exit
 
 # Load NetCDF file
-nc_file = "predictions/prediction_AL09_2024092512.nc"  # Change to the actual filename
-file_out = 'probs_al09_2024092512.png'
+nc_file = "predictions/prediction_AL09_2024092312.nc"  # Change to the actual filename
+file_out = 'probs_al09_2024092312.png'
 ds = Dataset(nc_file, mode="r")
 
 dir_native = '/glade/work/rozoff/ensri/ENCORE/data_output/2024/'
@@ -44,6 +45,9 @@ min_lon = -92
 max_lon = -75
 min_lat = 18
 max_lat = 31
+
+min_lat = 16
+max_lat = 29
 #
 print('Plotting field')
 projection = ccrs.Mercator()
@@ -77,15 +81,23 @@ ax.set_extent([min_lon, max_lon, min_lat, max_lat ])
 
 # Create colormap
 #cmap = cm.get_cmap("viridis")
-cmap = cm.get_cmap("gist_ncar_r")
+
+cmap = colormaps.get_cmap("gist_ncar_r")
 norm = mcolors.Normalize(vmin=0, vmax=1)
 
+
+# Step 1: Compute max probability for each trajectory
+max_probs = np.max(prob_f, axis=1)  # Shape: (NM,)
+
+# Step 2: Get sorted indices based on max probability
+sorted_indices = np.argsort(max_probs)  # Smallest to largest
+
 # Plot trajectories as lines
-for i in range(NM):
+for idx in sorted_indices:
     for t in range(NT - 1):  # Iterate over time steps
-        color = cmap(norm(prob_f[i, t]))  # Color based on prob_f
-        ax.plot([longitude[i, t], longitude[i, t+1]], 
-                [latitude[i, t], latitude[i, t+1]], 
+        color = cmap(norm(prob_f[idx, t]))  # Color based on prob_f
+        ax.plot([longitude[idx, t], longitude[idx, t+1]], 
+                [latitude[idx, t], latitude[idx, t+1]], 
                 color=color, linewidth=1.5, transform=ccrs.PlateCarree())
 
 # Create colorbar

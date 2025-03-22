@@ -2,4 +2,6 @@ __pycache__
 ensemble/*.nc
 ensemble/*.mat
 predictions/
-predictor_files/
+predictor_files
+predictions/images
+ensemble/images/
