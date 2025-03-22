@@ -15,7 +15,7 @@ from sys import exit
 stnam = 'AL09'
 yr = '2024'
 mo = '09'
-da = '24'
+da = '26'
 hr = '06'
 max_lat = 31
 min_lat = 18 # 17 for 2,3, 16 for 1 
@@ -33,7 +33,7 @@ prob_f = ds.variables["prob_f"][:]         # Shape (NM, NT)
 reduced_f = ds.variables["reduced_f"][:]   # Shape (NM, NF, NT)
 vmaxbt_f = ds.variables["vmaxbt_f"][:]     # Shape (NT)
 
-var_f = np.squeeze(reduced_f[:, 33, :])
+var_f = np.squeeze(reduced_f[:, 48, :])
 
 NM, NF, NT = reduced_f.shape  # Extract dimensions
 #
@@ -90,8 +90,8 @@ ax.set_extent([min_lon, max_lon, min_lat, max_lat ])
 # Create colormap
 #cmap = cm.get_cmap("viridis")
 
-cmap = colormaps.get_cmap("gist_ncar")
-norm = mcolors.Normalize(vmin=0, vmax=50)
+cmap = colormaps.get_cmap("gist_ncar_r")
+norm = mcolors.Normalize(vmin=0, vmax=150)
 
 
 # Step 1: Compute max probability for each trajectory
