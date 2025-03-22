@@ -22,7 +22,7 @@ min_lat = 16 # 17 for 2,3, 16 for 1
 
 #
 nc_file = ("predictions/prediction_" + stnam + "_" + yr + mo + da + hr + ".nc")
-file_out = ("mpi_" + stnam + "_" + yr + mo + da + hr + ".png")
+file_out = ("shr_" + stnam + "_" + yr + mo + da + hr + ".png")
 #
 ds = Dataset(nc_file, mode="r")
 #
