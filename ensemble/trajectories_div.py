@@ -12,14 +12,23 @@ from matplotlib import colormaps
 from sys import exit
 
 # Load NetCDF file
-stnam = 'AL09'
+stnam = 'AL14' #'AL09'
 yr = '2024'
-mo = '09'
-da = '23'
-hr = '12'
+mo = '10' #'09'
+da = '06' #'23'
+hr = '06' #'12'
+#
+# Helene
 max_lat = 29
-min_lat = 16
-
+min_lat = 16 # 17 for 2,3, 16 for 1
+min_lon = -92
+max_lon = -75
+#
+# Milton
+max_lat = 28
+min_lat = 15
+min_lon = -96
+max_lon = -71
 #
 nc_file = ("predictions/prediction_" + stnam + "_" + yr + mo + da + hr + ".nc")
 file_out = ("div_" + stnam + "_" + yr + mo + da + hr + ".png")
@@ -49,13 +58,8 @@ meanlat = np.nanmean(latitude)
 
 #max_lat = meanlat + 10
 #min_lat = meanlat - 10
-max_lon = meanlon - 15
-min_lon = meanlon + 15
-
-min_lon = -92
-max_lon = -75
-#min_lat = 18
-#max_lat = 31
+#max_lon = meanlon - 15
+#min_lon = meanlon + 15
 #
 print('Plotting field')
 projection = ccrs.Mercator()
