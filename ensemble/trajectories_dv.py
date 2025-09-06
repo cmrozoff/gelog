@@ -12,11 +12,11 @@ from matplotlib import colormaps
 from sys import exit
 
 # Load NetCDF file
-stnam = 'AL14' #'AL09'
+stnam = 'AL09' # 'AL14' #'AL09'
 yr = '2024'
-mo = '10' #'09'
-da = '06' #'26'
-hr = '06'
+mo = '09' #'10' #'09'
+da = '23' #'06' #'26'
+hr = '18' #'06'
 #
 #
 # Helene
@@ -26,10 +26,10 @@ min_lon = -92
 max_lon = -75
 #
 # Milton
-max_lat = 28
-min_lat = 15
-min_lon = -96
-max_lon = -71
+#max_lat = 28
+#min_lat = 15
+#min_lon = -96
+#max_lon = -71
 #
 nc_file = ("predictions/prediction_" + stnam + "_" + yr + mo + da + hr + ".nc")
 file_out = ("dv_" + stnam + "_" + yr + mo + da + hr + ".png")
@@ -96,7 +96,7 @@ ax.set_extent([min_lon, max_lon, min_lat, max_lat ])
 # Create colormap
 #cmap = cm.get_cmap("viridis")
 
-cmap = colormaps.get_cmap("gist_ncar_r")
+cmap = colormaps.get_cmap("bwr")
 norm = mcolors.Normalize(vmin=-40, vmax=40)
 
 

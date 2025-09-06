@@ -5,6 +5,7 @@ import cartopy.feature as cfeature
 from cartopy.io.shapereader import natural_earth
 from matplotlib.cm import ScalarMappable
 import matplotlib.ticker as mticker
+from matplotlib.colors import LinearSegmentedColormap
 from netCDF4 import Dataset
 import matplotlib.colors as mcolors
 import matplotlib.cm as cm
@@ -12,23 +13,23 @@ from matplotlib import colormaps
 from sys import exit
 
 # Load NetCDF file
-stnam = 'AL14' #'AL09'
+stnam = 'AL09' #'AL14'
 yr = '2024'
-mo = '10' #'09'
-da = '06' #'23'
-hr = '06' #'18'
+mo = '09' #'10' #'09'
+da = '26' #'06' #'23'
+hr = '00' #'06' #'18'
 #
 # Helene
-max_lat = 29
-min_lat = 16 # 17 for 2,3, 16 for 1 
+max_lat = 30
+min_lat = 17 # 17 for 2,3, 16 for 1 
 min_lon = -92
 max_lon = -75
 #
 # Milton
-max_lat = 28
-min_lat = 15 
-min_lon = -96
-max_lon = -71
+#max_lat = 28
+#min_lat = 15 
+#min_lon = -96
+#max_lon = -71
 #
 nc_file = ("predictions/prediction_" + stnam + "_" + yr + mo + da + hr + ".nc")
 file_out = ("shr_" + stnam + "_" + yr + mo + da + hr + ".png")
@@ -55,12 +56,19 @@ latitude = reduced_f[:, lat_idx, :]   # Shape (NM, NT)
 
 meanlon = np.nanmean(longitude)
 meanlat = np.nanmean(latitude)
+#
+# Get the "jet" colormap
+jet = plt.cm.get_cmap("jet_r")
 
-#max_lat = meanlat + 10
-#min_lat = meanlat - 10
-#max_lon = meanlon - 15
-#min_lon = meanlon + 15
+# Create a truncated version: e.g., skip bottom 20% of jet
+def truncate_colormap(cmap, minval=0.2, maxval=1.0, n=256):
+    new_cmap = LinearSegmentedColormap.from_list(
+        f"trunc({cmap.name},{minval:.2f},{maxval:.2f})",
+        cmap(np.linspace(minval, maxval, n))
+    )
+    return new_cmap
 
+#truncated_jet = truncate_colormap(jet, 0.2, 1.0)
 #
 print('Plotting field')
 projection = ccrs.Mercator()
@@ -94,8 +102,8 @@ ax.set_extent([min_lon, max_lon, min_lat, max_lat ])
 
 # Create colormap
 #cmap = cm.get_cmap("viridis")
-
-cmap = colormaps.get_cmap("gist_ncar")
+#cmap = colormaps.get_cmap("gist_ncar")
+cmap = truncate_colormap(jet, 0.0, 0.8)
 norm = mcolors.Normalize(vmin=0, vmax=50)
 
 
