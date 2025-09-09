@@ -16,8 +16,8 @@ from sys import exit
 stnam = 'AL09' #'AL14' # 'AL09'
 yr = '2024'
 mo = '09' #'10' #'09'
-da = '26' #'06' #'23'
-hr = '00' #'06' #'18'
+da = '23' #'06' #'23'
+hr = '18' #'06' #'18'
 #
 #
 # Helene
@@ -44,7 +44,7 @@ prob_f = ds.variables["prob_f"][:]         # Shape (NM, NT)
 reduced_f = ds.variables["reduced_f"][:]   # Shape (NM, NF, NT)
 vmaxbt_f = ds.variables["vmaxbt_f"][:]     # Shape (NT)
 
-var_f = np.squeeze(reduced_f[:, 48, :])
+var_f = np.squeeze(reduced_f[:, 54, :])
 
 NM, NF, NT = reduced_f.shape  # Extract dimensions
 #
@@ -104,7 +104,7 @@ ax.set_extent([min_lon, max_lon, min_lat, max_lat ])
 #cmap = cm.get_cmap("viridis")
 #cmap = colormaps.get_cmap("gist_ncar_r")
 cmap = truncate_colormap(jet, 0.2, 1.0)
-norm = mcolors.Normalize(vmin=0, vmax=160)
+norm = mcolors.Normalize(vmin=100, vmax=180)
 
 
 # Step 1: Compute max probability for each trajectory
