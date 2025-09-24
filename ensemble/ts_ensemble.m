@@ -61,14 +61,6 @@ hold on;
 % Small time buffer (adjust as desired)
 buffer = minutes(30);  % 30-minute buffer on each side
 
-% Shade RI periods
-%for i = 1:size(RI_indices,1)
-%    x1 = t(RI_indices(i,1)) + buffer;
-%    x2 = t(RI_indices(i,2)) - buffer;
-%    fill([x1 x2 x2 x1], [0 0 150 150], [0.8 0.8 0.8], ...
-%        'EdgeColor', 'none', 'FaceAlpha', 0.5); % gray box
-%end
-
 % Create N distinct grey shades from light to dark
 %num_ri = size(merged_ranges, 1);
 num_ri=length(RI_indices);
@@ -176,7 +168,7 @@ ax.XLabel.FontSize = 18;
 ax.YLabel.FontSize = 18;
 ax.YColor = 'k';
 
-% 👉 Add minor ticks every 5 kt
+% Add minor ticks every 5 kt
 ax.YAxis(2).MinorTick = 'on';  
 ax.YAxis(2).MinorTickValues = 0:5:155;     
 ax.YAxis(2).TickDirection = 'in';     

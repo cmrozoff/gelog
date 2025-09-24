@@ -75,7 +75,7 @@ for i = 1:size(RI_indices,1)
 end
 
 % ----------------------------------------------------
-% 🔄 SWAP ORDER OF AXES: start with right axis first
+% SWAP ORDER OF AXES: start with right axis first
 % ----------------------------------------------------
 
 % Plot probabilities on the *left* y-axis (was right)
