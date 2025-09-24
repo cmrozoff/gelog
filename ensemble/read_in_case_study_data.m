@@ -8,7 +8,12 @@ for imember = 1:31
         imem = num2str(imember - 1);
     end
     %
-    filein = [home_dir basin_f stnum_f yr_f '_gefs_' ...
+    if strcmp(basin_f, 'AL')
+        basin_str = 'al';
+    else
+        basin_str = 'ep';
+    end
+    filein = [home_dir basin_str stnum_f yr_f '_gefs_' ...
         yr_f mo_f da_f hr_f '_enmem_' imem '_diag.nc'];
     [a, b] = size(ncread(filein, 'LAT'));
     %
