@@ -112,7 +112,7 @@ ax.YLabel.FontSize = 18;
 
 ax.YColor = 'k';
 
-% 👉 Add minor ticks every 5 kt
+% Add minor ticks every 5 kt
 ax.YAxis(1).MinorTick = 'on';  
 ax.YAxis(1).MinorTickValues = 0:5:155;     
 ax.YAxis(1).TickDirection = 'out';     
