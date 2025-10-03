@@ -9,7 +9,6 @@ from cartopy.io.shapereader import natural_earth
 from matplotlib.cm import ScalarMappable
 import matplotlib.ticker as mticker
 
-
 # Load file
 file_path = "bal092024.dat"
 
@@ -18,10 +17,8 @@ min_lat = 12 # 17 for 2,3, 16 for 1
 min_lon = -100
 max_lon = -70
 
-
 with open(file_path, 'r') as file:
     lines = file.readlines()
-
 
 # Manually parse the file
 parsed_rows = []
@@ -103,13 +100,6 @@ for i in range(len(df) - 1):
 # Scatter plot
 sc = ax.scatter(df['longitude'], df['latitude'], c=df['wind_speed'], 
                 cmap=cmap, norm=norm, alpha = 0.8, s=15, zorder=3, transform=ccrs.PlateCarree())
-
-# Annotate wind speed next to each dot
-#for i, row in df.iterrows():
-#    ax.text(row['longitude'] + 0.6, row['latitude'], f"{int(row['wind_speed'])}", 
-#            fontsize=4, ha='left', va='center', transform=ccrs.PlateCarree())
-
-# Colorbar and labels
 # Colorbar setup
 cbar = plt.colorbar(sc, ax=ax, ticks=wind_bins[:-1])
 cbar.set_label('Saffir-Simpson Scale')
