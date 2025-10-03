@@ -1,5 +1,7 @@
 %
 % MPI Calculation
+%  - routine based on iships.f used at NHC
+%
 vmax = all_preds(:, :, 48);
 vmpi = all_preds(:, :, 49);
 cmagt = all_preds(:, :, 37);
