@@ -28,13 +28,6 @@ for il = 0:0
                 vmaxbt(j, i) = vmax_bt(ind(1));
             end
         end
-%         figure(1); clf
-%         plot(vmaxbt(:,i), 'linewidth', 2)
-%         title([num2str(stnum(i)) ' ' basin(i) ' ' num2str(yr(i)) num2str(mo(i)) ...
-%             num2str(da(i)) num2str(hr(i))])
-%         xlim([0 41])
-%         ylim([0 145])
-%         pause
     end
     %convert_preds
     [nl, nt] = size(cape1);
@@ -97,13 +90,6 @@ for il = 0:0
     clear stm* sst shr* rmw rh* p* ir* lat lon min_slp cape* dvrg*
     clear ike* tpw land
     clear i j nt nf ind nl basin_bt vmax_bt time_bt stnum_bt mo da hr
-    %ind = find(yr == 2021);
-    %time_all = time_all(ind);
-    %all_preds = all_preds(ind, :, :);
-    %basin = basin(ind);
-    %forInit = forInit(ind, :);
-    %stnum = stnum(ind);
-    %vmaxbt = vmaxbt(:, ind);
     clear yr
     save(['all_variables_with_bt' imem '.mat'], 'time_all', ...
         'stnum', 'basin', 'all_preds', 'vmaxbt', 'forInit')
