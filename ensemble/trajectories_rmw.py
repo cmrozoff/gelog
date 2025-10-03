@@ -57,11 +57,6 @@ latitude = reduced_f[:, lat_idx, :]   # Shape (NM, NT)
 meanlon = np.nanmean(longitude)
 meanlat = np.nanmean(latitude)
 
-#max_lat = meanlat + 10
-#min_lat = meanlat - 10
-#max_lon = meanlon - 15
-#min_lon = meanlon + 15
-
 #
 print('Plotting field')
 projection = ccrs.Mercator()
@@ -94,11 +89,8 @@ ax.set_extent([min_lon, max_lon, min_lat, max_lat ])
 
 
 # Create colormap
-#cmap = cm.get_cmap("viridis")
-
 cmap = colormaps.get_cmap("gist_ncar")
 norm = mcolors.Normalize(vmin=0, vmax=200)
-
 
 # Step 1: Compute max probability for each trajectory
 max_var = np.max(prob_f, axis=1)  # Shape: (NM,)
