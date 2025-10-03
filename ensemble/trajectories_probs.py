@@ -58,11 +58,6 @@ latitude = reduced_f[:, lat_idx, :]   # Shape (NM, NT)
 meanlon = np.nanmean(longitude)
 meanlat = np.nanmean(latitude)
 
-
-#max_lat = meanlat + 10
-#min_lat = meanlat - 10
-#max_lon = meanlon - 15
-#min_lon = meanlon + 15
 #
 # Get the "jet" colormap
 jet = plt.cm.get_cmap("jet")
@@ -109,13 +104,8 @@ ax.set_extent([min_lon, max_lon, min_lat, max_lat ])
 
 
 # Create colormap
-#cmap = cm.get_cmap("viridis")
-
-#cmap = colormaps.get_cmap("gist_ncar_r")
-#cmap = colormaps.get_cmap("jet")
 cmap = truncate_colormap(jet, 0.2, 1.0)
 norm = mcolors.Normalize(vmin=0, vmax=1)
-
 
 # Step 1: Compute max probability for each trajectory
 max_probs = np.max(prob_f, axis=1)  # Shape: (NM,)
